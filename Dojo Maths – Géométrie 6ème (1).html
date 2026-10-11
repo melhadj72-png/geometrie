@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dojo Maths – Géométrie 6ème</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#e8ebf7;--bg2:#d5daf0;--card:#fff;--ink:#191a3a;--mu:#5a5d86;--line:#c3c8e6;--red:#d62839;--good:#12945a;--gb:#dff6ea;--bad:#c2273b;--bb:#fde4e7;--ac:#4b4fd6;--ai:#fff;--sh:rgba(25,26,58,.18)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e0f26;--bg2:#171942;--card:#1b1d4a;--ink:#f1f2ff;--mu:#a9acd8;--line:#34377a;--red:#ff6475;--good:#4ee3a0;--gb:#0f3b2c;--bad:#ff7a8a;--bb:#431a26;--ac:#8c90ff;--ai:#0e0f26;--sh:rgba(0,0,0,.5)}}
+:root[data-theme=dark]{--bg:#0e0f26;--bg2:#171942;--card:#1b1d4a;--ink:#f1f2ff;--mu:#a9acd8;--line:#34377a;--red:#ff6475;--good:#4ee3a0;--gb:#0f3b2c;--bad:#ff7a8a;--bb:#431a26;--ac:#8c90ff;--ai:#0e0f26;--sh:rgba(0,0,0,.5)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:600 17px/1.5 Nunito,system-ui,sans-serif;min-height:100%}
+h1,h2,h3{font-family:'Lilita One',system-ui,sans-serif;font-weight:400;line-height:1.15;margin:0}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.w{max-width:740px;margin:0 auto;padding:14px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.brand{font:400 1.15rem 'Lilita One',sans-serif;background:none;border:0;color:var(--ink);cursor:pointer;padding:0}
+.chip,.ic{background:var(--card);border:2px solid var(--line);border-radius:999px;font-weight:800;color:var(--ink)}
+.chip{padding:3px 11px;margin-right:8px}.ic{width:42px;height:42px;cursor:pointer;font-size:1.1rem}
+.card{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 6px 0 var(--sh)}
+.c{text-align:center}.c h1{font-size:2rem;margin:6px 0}.c p{color:var(--mu);max-width:46ch;margin:6px auto}
+.btn{background:var(--ac);color:var(--ai);border:0;border-radius:16px;padding:13px 22px;font-size:1.05rem;font-weight:800;cursor:pointer;box-shadow:0 5px 0 var(--sh)}
+.btn.g{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.map{display:grid;gap:12px;margin-top:18px}
+.lv{display:flex;align-items:center;gap:14px;text-align:left;width:100%;background:var(--card);border:2px solid var(--line);border-left:12px solid var(--b);border-radius:18px;padding:12px 14px;cursor:pointer;color:var(--ink)}
+.lv[disabled]{opacity:.5;cursor:not-allowed}.lv .e{font-size:1.7rem}.lv b{font:400 1.1rem 'Lilita One',sans-serif;display:block}.lv small{color:var(--mu)}.lv .s{margin-left:auto;font-weight:800;white-space:nowrap}
+.big{font:400 3.2rem 'Lilita One',sans-serif;line-height:1;margin:6px 0}
+.qh{display:flex;justify-content:space-between;margin:10px 0 6px;color:var(--mu);font-weight:800;font-size:.95rem}
+.bar{height:16px;background:var(--bg2);border-radius:999px;overflow:hidden;border:2px solid var(--line)}.bar i{display:block;height:100%;background:var(--b);transition:width .3s}
+.tag{display:inline-block;background:var(--bb);color:var(--bad);border-radius:999px;padding:1px 10px;font-size:.85rem;margin-bottom:8px}
+.q{font:400 1.18rem/1.35 'Lilita One',sans-serif;margin:2px 0 16px}
+.opts{display:grid;gap:10px}
+.opt{width:100%;text-align:left;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:16px;padding:13px 15px;font-size:1.02rem;font-weight:800;cursor:pointer;box-shadow:0 4px 0 var(--sh);display:flex;gap:11px}
+.opt .k{flex:none;width:28px;height:28px;border-radius:50%;background:var(--bg2);display:grid;place-items:center;font-size:.9rem}
+.opt.good{background:var(--gb);border-color:var(--good)}.opt.bad{background:var(--bb);border-color:var(--bad)}
+.fb{margin-top:16px;border-radius:16px;padding:13px 15px}.fb.good{background:var(--gb);border:2px solid var(--good)}.fb.bad{background:var(--bb);border:2px solid var(--bad)}
+.fb b{display:block;font:400 1.1rem 'Lilita One',sans-serif}
+details{margin-bottom:12px;background:var(--card);border:2px dashed var(--line);border-radius:16px;padding:8px 14px}summary{cursor:pointer;font-weight:800}
+.les h2{font-size:1.45rem;margin-bottom:10px}.les h3{font-size:1.1rem;margin:14px 0 6px}.les p{margin:6px 0}
+.les table{border-collapse:collapse;width:100%;font-size:.95rem;margin:8px 0}.les th,.les td{border:2px solid var(--line);padding:6px 9px;text-align:left}.les th{background:var(--bg2)}
+.key{background:var(--bg2);border-left:6px solid var(--red);border-radius:10px;padding:8px 12px;margin:10px 0}
+.sx{overflow-x:auto}
+svg.fig{width:100%;max-width:420px;display:block;margin:8px auto}
+svg text{fill:var(--ink);font:800 13px Nunito,sans-serif}
+.l{stroke:var(--ink);stroke-width:2;fill:none}.a{stroke:var(--ac);stroke-width:2;fill:none}.d{stroke:var(--red);stroke-width:2;stroke-dasharray:5 4;fill:none}.p{fill:var(--ink)}
+.pop{animation:pop .3s ease-out}@keyframes pop{0%{transform:scale(.97)}60%{transform:scale(1.02)}100%{transform:scale(1)}}
+@keyframes sl{0%{opacity:0;transform:translateX(-40px)}30%{opacity:1}100%{opacity:0;transform:translateX(60px)}}
+.sl{position:fixed;left:0;right:0;top:38%;text-align:center;font:400 2.4rem 'Lilita One',sans-serif;pointer-events:none;color:var(--red);animation:sl .9s forwards;z-index:9}
+@media(prefers-reduced-motion:reduce){.pop,.sl{animation:none}.bar i{transition:none}}
+</style></head>
+<body><div class="w">
+<div class="top"><button class="brand" onclick="home()">🥷 Dojo Maths</button><div><span class="chip" id="st" title="Bonnes réponses d'affilée">🔥 0</span><button class="ic" id="sb" aria-label="Son">🔊</button></div></div>
+<main id="app"></main></div>
+<script>
+const $=s=>document.querySelector(s),sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=0|Math.random()*(i+1);[a[i],a[j]]=[a[j],a[i]]}return a};
+const fmt=n=>(Math.round(n*10)/10).toString().replace('.',',');
+const S={li:0,qs:[],queue:[],failed:{},ok:[],done:[],n:[],un:0,dn:0,st:0,snd:true,ans:false,opts:[],k:0};
+let AC;
+function tone(f,t,d,ty,v){if(!S.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.type=ty||'triangle';o.frequency.value=f;g.gain.setValueAtTime(v||.14,AC.currentTime+t);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+t+d);o.connect(g);g.connect(AC.destination);o.start(AC.currentTime+t);o.stop(AC.currentTime+t+d+.02)}catch(e){}}
+const win=()=>[523,659,784,1047].forEach((f,i)=>tone(f,i*.11,.3));
+function say(t){if(!S.snd||!('speechSynthesis' in window))return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='fr-FR';u.pitch=1.2;speechSynthesis.speak(u)}catch(e){}}
+function flash(t){const d=document.createElement('div');d.className='sl';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),950)}
+$('#sb').onclick=()=>{S.snd=!S.snd;$('#sb').textContent=S.snd?'🔊':'🔇';if(!S.snd)try{speechSynthesis.cancel()}catch(e){}};
+const GOOD=["Bravo, jeune ninja ! Ton compas a fait mouche !","Excellent ! Précis comme une règle graduée !","Hiya ! Bonne réponse !","Parfait ! Ton esprit est tranchant comme un katana !"];
+const BAD=["Pas grave, jeune ninja. Lis bien l'explication, tu reviendras plus fort !","Aïe, le piège était bien caché. Lis l'explication, puis on recommence !"];
+
+const F1=`<svg class="fig" viewBox="0 0 380 150" role="img" aria-label="Médiatrice de AB"><path class="l" d="M60 100H320"/><path class="a" d="M190 12V140"/><path class="d" d="M190 30L60 100M190 30L320 100"/><path class="l" d="M190 90H178V100M125 94v12M255 94v12"/><text x="52" y="122">A</text><text x="318" y="122">B</text><text x="186" y="122">I</text><text x="198" y="30">M</text><text x="206" y="84">MA = MB</text><text x="198" y="144">médiatrice de [AB]</text></svg>`;
+const F2=`<svg class="fig" viewBox="0 0 380 120" role="img" aria-label="Parallèles et perpendiculaire"><path class="l" d="M30 30H340M30 85H340"/><path class="a" d="M120 10V110"/><path class="l" d="M120 18H132V30M120 73H132V85"/><path class="d" d="M250 24l6 6-6 6M250 79l6 6-6 6"/><text x="344" y="34">(d1)</text><text x="344" y="89">(d2)</text><text x="126" y="12">(d3)</text></svg>`;
+const F3=`<svg class="fig" viewBox="0 0 380 130" role="img" aria-label="Bissectrice"><path class="l" d="M40 115H200M40 115L90 28"/><path class="d" d="M40 115L170 40"/><path class="a" d="M70 115A30 30 0 0 0 66 100M66 100A30 30 0 0 0 55 89"/><text x="24" y="124">O</text><text x="204" y="119">x</text><text x="94" y="28">y</text><text x="174" y="40">z</text><text x="220" y="84">xOz = zOy : bissectrice (Oz)</text></svg>`;
+const F4=`<svg class="fig" viewBox="0 0 380 140" role="img" aria-label="Symétrie axiale"><path class="a" d="M190 8V132"/><path class="l" d="M60 30L120 55L80 110Z"/><path class="l" d="M320 30L260 55L300 110Z"/><path class="d" d="M60 30H320M120 55H260M80 110H300"/><text x="44" y="34">A</text><text x="324" y="34">A'</text><text x="126" y="50">B</text><text x="240" y="50">B'</text><text x="74" y="126">C</text><text x="298" y="126">C'</text><text x="196" y="136">axe</text></svg>`;
+const F6=`<svg class="fig" viewBox="0 0 380 150" role="img" aria-label="Cercle"><circle cx="110" cy="75" r="60" class="l"/><path class="a" d="M50 75H170"/><path class="d" d="M110 75L152.4 32.6"/><path class="l" d="M75.6 124.1H144.4"/><circle class="p" cx="110" cy="75" r="3"/><text x="106" y="92">O</text><text x="32" y="79">D</text><text x="174" y="79">E</text><text x="156" y="30">R</text><text x="66" y="142">P</text><text x="146" y="142">Q</text><path class="d" d="M215 50h16M215 80h16M215 110h16" style="stroke-dasharray:none"/><text x="238" y="54">rayon [OR]</text><text x="238" y="84">diamètre [DE]</text><text x="238" y="114">corde [PQ]</text></svg>`;
+
+const LV=[
+{n:"Ceinture blanche",e:"📏",b:"#f3f3f3",t:"Segments, droites et médiatrice",
+l:`<h2>📜 Parchemin 1 : segment, droite, médiatrice</h2>
+<div class="sx"><table><tr><th>Notation</th><th>Signification</th></tr><tr><td><b>[AB]</b></td><td>segment d'extrémités A et B</td></tr><tr><td><b>(AB)</b></td><td>droite qui passe par A et B</td></tr><tr><td><b>[AB)</b></td><td>demi-droite d'origine A passant par B</td></tr><tr><td><b>AB</b></td><td>longueur du segment [AB]</td></tr></table></div>
+<p>Le <b>milieu</b> I de [AB] est le point du segment tel que <b>AI = IB</b>.</p>
+<div class="key">🔑 La <b>médiatrice</b> de [AB] est la droite <b>perpendiculaire</b> à [AB] qui passe par son <b>milieu</b>. Tout point M de la médiatrice vérifie <b>MA = MB</b> (équidistance), et inversement.</div>${F1}
+<p><b>Construction au compas :</b> deux arcs de <b>même rayon</b> (plus grand que la moitié de AB) centrés en A puis en B. On relie leurs deux points d'intersection.</p>`,
+q:[
+["Que désigne la notation [AB] ?","Le segment d'extrémités A et B",["La droite (AB)","La demi-droite d'origine A","La longueur AB"],"Les crochets [ ] marquent des extrémités : c'est un segment."],
+["Que désigne la notation (AB) ?","La droite passant par A et B",["Le segment [AB]","La longueur entre A et B","Le milieu de A et B"],"Les parenthèses ( ) ne s'arrêtent nulle part : c'est une droite."],
+["Que désigne AB (sans crochets ni parenthèses) ?","La longueur du segment [AB]",["La droite (AB)","Le segment [AB]","Le milieu de [AB]"],"AB est un nombre, par exemple AB = 6 cm."],
+["I est le milieu de [AB] et AB = 9 cm. Que vaut AI ?","4,5 cm",["9 cm","18 cm","3 cm"],"Le milieu partage en deux parties égales : 9 ÷ 2 = 4,5 cm."],
+["La médiatrice de [AB] est la droite…","Perpendiculaire à [AB] et passant par son milieu",["Parallèle à [AB] et passant par A","Passant par A et par B","Perpendiculaire à [AB] et passant par A"],"Il faut les deux conditions : perpendiculaire ET passant par le milieu."],
+["Un point M vérifie MA = MB. Que peut-on conclure ?","M est sur la médiatrice de [AB]",["M est le milieu de [AB]","M est sur le segment [AB]","M, A et B sont alignés"],"Équidistant de A et B = sur la médiatrice. Pas forcément le milieu."],
+["Pour construire la médiatrice de [AB] au compas, on trace…","Deux arcs de même rayon (plus grand que la moitié de AB), centrés en A et en B",["Deux arcs de rayon plus petit que la moitié de AB","Deux arcs centrés tous les deux en A","Un cercle de diamètre [AB]"],"Si le rayon est trop petit, les arcs ne se coupent pas."],
+["Quel angle forment [AB] et sa médiatrice ?","90° (angle droit)",["45°","180°","60°"],"La médiatrice est perpendiculaire à [AB]."]]},
+{n:"Ceinture jaune",e:"📐",b:"#f5c518",t:"Droites parallèles et perpendiculaires",
+l:`<h2>📜 Parchemin 2 : parallèles et perpendiculaires</h2>
+<p>Deux droites sont <b>perpendiculaires</b> si elles se coupent en formant un <b>angle droit</b> (symbole ⊥). Elles sont <b>parallèles</b> si elles ne se coupent jamais (symbole //).</p>${F2}
+<div class="key">🔑 <b>Propriétés à connaître</b><br>• Parallèles à une même 3e droite ⟹ parallèles entre elles.<br>• Perpendiculaires à une même 3e droite ⟹ parallèles entre elles.<br>• Si (d1) // (d2) et (d3) ⊥ (d1), alors (d3) ⊥ (d2).</div>
+<p><b>Codage :</b> petit <b>carré</b> = angle droit · mêmes <b>chevrons</b> = droites parallèles · mêmes <b>petits traits</b> = segments de même longueur.</p>
+<p><b>Tracer la parallèle à (d) passant par A à la règle et à l'équerre :</b> on trace la perpendiculaire à (d), puis la perpendiculaire à celle-ci passant par A.</p>`,
+q:[
+["Que sont deux droites perpendiculaires ?","Deux droites qui se coupent en formant un angle droit",["Deux droites qui ne se coupent jamais","Deux droites qui forment un angle de 45°","Deux droites confondues"],"Perpendiculaires : angle de 90° au point d'intersection."],
+["(d1) // (d3) et (d2) // (d3). Que sont (d1) et (d2) ?","Parallèles",["Perpendiculaires","Sécantes","On ne peut rien dire"],"Deux droites parallèles à une même troisième sont parallèles entre elles."],
+["(d1) ⊥ (d3) et (d2) ⊥ (d3). Que sont (d1) et (d2) ?","Parallèles",["Perpendiculaires","Sécantes en oblique","On ne peut rien dire"],"Pense à deux rails coupés par une traverse à angle droit."],
+["(d1) // (d2) et (d3) ⊥ (d1). Que peut-on dire de (d3) et (d2) ?","(d3) ⊥ (d2)",["(d3) // (d2)","(d3) est la médiatrice de (d2)","On ne peut rien dire"],"Une perpendiculaire à l'une des deux parallèles l'est aussi à l'autre."],
+["Que signifie un petit carré dessiné dans un angle ?","L'angle est droit",["Les deux droites sont parallèles","Les deux côtés ont la même longueur","L'angle est plat"],"Le carré code l'angle droit."],
+["Que signifient deux mêmes chevrons sur deux droites ?","Les deux droites sont parallèles",["Les deux droites sont perpendiculaires","Les deux segments ont la même longueur","Les droites sont confondues"],"Les chevrons codent le parallélisme."],
+["Pour tracer la parallèle à (d) passant par A, on trace…","La perpendiculaire à (d), puis la perpendiculaire à celle-ci passant par A",["Une droite quelconque passant par A","La médiatrice de [AB]","Un cercle de centre A"],"Deux perpendiculaires à une même droite sont parallèles."]]},
+{n:"Ceinture orange",e:"📏",b:"#ff8c1a",t:"Angles et bissectrice",
+l:`<h2>📜 Parchemin 3 : angles et bissectrice</h2>
+<div class="sx"><table><tr><th>Angle</th><th>Mesure</th></tr><tr><td>nul</td><td>0° (côtés confondus)</td></tr><tr><td>aigu</td><td>entre 0° et 90°</td></tr><tr><td>droit</td><td>90°</td></tr><tr><td>obtus</td><td>entre 90° et 180°</td></tr><tr><td>plat</td><td>180° (côtés opposés)</td></tr></table></div>
+<p><b>Rapporteur :</b> centre sur le <b>sommet</b>, zéro sur l'un des <b>côtés</b>, on lit sur la bonne graduation.</p>
+<div class="key">🔑 La <b>bissectrice</b> d'un angle le partage en <b>deux angles égaux</b>. Ses points sont à <b>égale distance des deux côtés</b>.</div>${F3}`,
+q:[
+["Au rapporteur, tu lis 132°. L'angle est…","Obtus",["Aigu","Droit","Plat"],"Obtus : entre 90° et 180°."],
+["Un angle de 38° est…","Aigu",["Obtus","Droit","Plat"],"Aigu : moins de 90°."],
+["A, O, B sont alignés et O est entre A et B. L'angle AOB est…","Plat",["Nul","Droit","Obtus"],"Côtés opposés : 180°."],
+["Comment s'appelle un angle de 0° ?","Un angle nul",["Un angle plat","Un angle aigu","Un angle droit"],"Les deux côtés sont confondus."],
+["Pour mesurer un angle, le centre du rapporteur se place sur…","Le sommet de l'angle",["Un point quelconque du côté","Le milieu de l'angle","L'extrémité du second côté"],"Centre sur le sommet, zéro sur un côté."],
+["xOy mesure 70° et (Oz) est sa bissectrice. Combien mesure xOz ?","35°",["70°","140°","20°"],"70° ÷ 2 = 35°."],
+["Un point de la bissectrice est…","À égale distance des deux côtés de l'angle",["À égale distance de deux points A et B","Toujours à 90° du sommet","Au milieu d'un segment"],"Ne confonds pas avec la médiatrice (équidistante de A et B)."]]},
+{n:"Ceinture verte",e:"🪞",b:"#2ecc71",t:"La symétrie axiale",
+l:`<h2>📜 Parchemin 4 : la symétrie axiale</h2>
+<p>A' est le <b>symétrique</b> de A par rapport à la droite (d) si <b>(d) est la médiatrice de [AA']</b>. Un point de l'axe est son propre symétrique.</p>${F4}
+<div class="key">🔑 La symétrie axiale <b>conserve</b> : les <b>longueurs</b>, les <b>alignements</b>, le <b>parallélisme</b>, les <b>mesures d'angles</b>. La figure passe <b>de l'autre côté</b> de l'axe.</div>
+<p><b>Construction :</b> perpendiculaire à l'axe passant par A, puis on reporte au compas la distance de A à l'axe de l'autre côté.</p>`,
+q:[
+["A' est le symétrique de A par rapport à (d). Que est (d) pour [AA'] ?","Sa médiatrice",["Une parallèle","Sa bissectrice","Un prolongement"],"(d) est perpendiculaire à [AA'] et passe par son milieu."],
+["A est un point de l'axe de symétrie. Où est son symétrique A' ?","Il est confondu avec A",["De l'autre côté, à la même distance","Au milieu de l'axe","On ne peut pas le savoir"],"Distance à l'axe = 0 : A' = A."],
+["[AB] mesure 6 cm. Combien mesure son symétrique [A'B'] ?","6 cm",["3 cm","12 cm","On ne sait pas"],"La symétrie conserve les longueurs."],
+["L'angle xOy mesure 40°. Combien mesure son symétrique ?","40°",["80°","20°","140°"],"Les mesures d'angles sont conservées."],
+["Quelle propriété n'est PAS conservée ?","Le côté de l'axe où se trouve la figure",["Les longueurs","Les alignements","Le parallélisme"],"La figure passe de l'autre côté de l'axe."],
+["(d1) // (d2). Leurs symétriques sont…","Parallèles",["Perpendiculaires","Sécantes","Confondues"],"Le parallélisme est conservé."],
+["Pour construire A', on trace d'abord…","La perpendiculaire à l'axe passant par A",["La parallèle à l'axe passant par A","Un cercle de rayon AB","La bissectrice de A"],"Puis on reporte la distance de l'autre côté."]]},
+{n:"Ceinture bleue",e:"🔺",b:"#2f80ed",t:"Triangles et quadrilatères",
+l:`<h2>📜 Parchemin 5 : triangles et quadrilatères</h2>
+<div class="sx"><table><tr><th>Figure</th><th>Définition</th></tr><tr><td><b>Triangle isocèle</b></td><td>2 côtés de même longueur</td></tr><tr><td><b>Triangle équilatéral</b></td><td>3 côtés de même longueur</td></tr><tr><td><b>Triangle rectangle</b></td><td>1 angle droit</td></tr><tr><td><b>Rectangle</b></td><td>4 angles droits</td></tr><tr><td><b>Losange</b></td><td>4 côtés de même longueur</td></tr><tr><td><b>Carré</b></td><td>4 côtés égaux ET 4 angles droits</td></tr><tr><td><b>Parallélogramme</b></td><td>côtés opposés parallèles</td></tr></table></div>
+<div class="key">🔑 Un <b>carré</b> est à la fois un rectangle et un losange. Un triangle équilatéral est aussi isocèle.</div>
+<p><b>Construire un triangle de trois côtés connus :</b> on trace un côté à la règle, puis on trace au <b>compas</b> deux arcs pour les deux autres longueurs.</p>`,
+q:[
+["ABC avec AB = AC = 5 cm et BC = 8 cm est…","Isocèle en A",["Équilatéral","Isocèle en B","Rectangle en A"],"Les deux côtés égaux se rejoignent en A."],
+["Un triangle a trois côtés de même longueur. Il est…","Équilatéral",["Rectangle","Seulement isocèle","Quelconque"],"Il est aussi isocèle, mais « équilatéral » est le nom le plus précis."],
+["Un triangle rectangle a…","Un angle droit",["Trois côtés égaux","Deux côtés parallèles","Un angle plat"],"Rectangle = un angle de 90°."],
+["Quel quadrilatère a ses 4 angles droits ?","Un rectangle",["Un losange","Un parallélogramme quelconque","Un trapèze"],"4 angles droits : rectangle."],
+["Quel quadrilatère a 4 côtés égaux ET 4 angles droits ?","Un carré",["Un losange","Un rectangle","Un parallélogramme"],"Il cumule les propriétés du rectangle et du losange."],
+["Quel quadrilatère a 4 côtés égaux, sans angle droit ?","Un losange",["Un carré","Un rectangle","Un trapèze"],"S'il avait un angle droit, ce serait un carré."],
+["Pour construire un triangle dont on connaît les trois côtés, on utilise…","La règle pour un côté, puis le compas pour les deux autres",["Seulement le rapporteur","Seulement l'équerre","Un cercle de diamètre le plus long côté"],"Les deux arcs se coupent au troisième sommet."],
+["Un parallélogramme est un quadrilatère dont…","Les côtés opposés sont parallèles",["Les 4 côtés sont égaux","Les 4 angles sont droits","Un seul angle est droit"],"Rectangle et losange sont des parallélogrammes particuliers."]]},
+{n:"Ceinture violette",e:"⭕",b:"#8e5bd6",t:"Le cercle",
+l:`<h2>📜 Parchemin 6 : le cercle</h2>
+<p>Le <b>cercle</b> de centre O et de rayon r est l'ensemble des points situés à la distance <b>r</b> de O. Le <b>disque</b>, lui, comprend aussi tout l'intérieur.</p>${F6}
+<div class="key">🔑 <b>Diamètre = 2 × rayon.</b> Le diamètre est la plus longue corde. Si A et B sont sur le cercle de centre O, alors <b>OA = OB</b> : le triangle OAB est <b>isocèle en O</b>.</div>
+<p><b>Au compas :</b> écartement = rayon, pointe sèche sur le centre.</p>`,
+q:[
+["Un cercle de centre O a un rayon de 3 cm. Où sont ses points ?","À 3 cm de O",["À moins de 3 cm de O","À plus de 3 cm de O","À 6 cm de O"],"Tous les points du cercle sont à la même distance du centre."],
+["Le rayon d'un cercle est 4,5 cm. Son diamètre est…","9 cm",["4,5 cm","2,25 cm","13,5 cm"],"Diamètre = 2 × rayon."],
+["Le diamètre d'un cercle est 12 cm. Son rayon est…","6 cm",["12 cm","24 cm","3 cm"],"Rayon = diamètre ÷ 2."],
+["M est à 2 cm du centre O d'un cercle de rayon 3 cm. M est…","À l'intérieur du disque (pas sur le cercle)",["Sur le cercle","À l'extérieur du cercle","Au centre"],"2 cm < 3 cm : M est dans le disque."],
+["A et B sont sur un cercle de centre O. Le triangle OAB est…","Isocèle en O",["Rectangle en O","Équilatéral dans tous les cas","Quelconque"],"OA et OB sont deux rayons : OA = OB."],
+["Quelle est la plus longue corde d'un cercle ?","Le diamètre",["Le rayon","Une corde qui ne passe pas par O","Elles sont toutes égales"],"Le diamètre passe par le centre."],
+["Pour tracer un cercle de rayon 3 cm, on écarte le compas de…","3 cm, pointe sèche sur le centre",["6 cm","3 cm, pointe sèche sur le cercle","1,5 cm"],"Écartement = rayon."],
+["Quelle est la différence entre cercle et disque ?","Le cercle est une ligne, le disque est une surface",["Aucune","Le disque est plus petit","Le cercle contient l'intérieur"],"Le disque contient aussi tout l'intérieur."]]},
+{n:"Ceinture noire",e:"🏯",b:"#1a1a2e",t:"Boss final : défis mixtes",
+l:`<h2>📜 Parchemin final</h2><p>12 questions tirées au hasard dans les 6 chapitres.</p><div class="key">À retenir : <b>médiatrice = ⊥ + milieu</b> · <b>bissectrice = 2 angles égaux</b> · <b>diamètre = 2 × rayon</b> · <b>symétrie : conserve longueurs et angles</b>.</div>`,
+q:()=>sh(LV.slice(0,6).flatMap(L=>sh(L.q).slice(0,2)))}];
+const CORE=[0,1,2,3,4,5,6];
+const sv=(h,c)=>`<svg class="fig" viewBox="0 0 380 ${h}" role="img" aria-label="Figure de l'exercice">${c}</svg>`;
+const T=(x,y,t,m)=>`<text x="${x}" y="${y}" text-anchor="${m||'middle'}">${t}</text>`,D=(x,y)=>`<circle class="p" cx="${x}" cy="${y}" r="3.5"/>`,P=(c,d)=>`<path class="${c}" d="${d}"/>`;
+const CI=(x,y,r,c)=>`<circle class="${c||'l'}" cx="${x}" cy="${y}" r="${r}"/>`;
+const FA=sv(90,P('l','M80 45H300')+D(80,45)+D(300,45)+T(80,70,'A')+T(300,70,'B'));
+const FB=sv(90,P('l','M30 45H350M30 45l8-5M30 45l8 5M350 45l-8-5M350 45l-8 5')+D(130,45)+D(250,45)+T(130,70,'A')+T(250,70,'B'));
+const FC=sv(90,P('l','M80 55H300')+D(80,55)+D(300,55)+T(80,78,'A')+T(300,78,'B')+T(190,40,'6 cm'));
+const FM=sv(110,P('l','M60 75H320M125 69v12M255 69v12')+P('a','M60 50v-8H320v8')+T(190,34,'9 cm')+D(60,75)+D(190,75)+D(320,75)+T(60,98,'A')+T(190,98,'I')+T(320,98,'B')+T(125,98,'AI = ?'));
+const FD=sv(200,P('l','M60 100H320')+P('d','M190 7A160 160 0 0 1 190 193M190 7A160 160 0 0 0 190 193')+P('a','M190 7V193')+D(60,100)+D(320,100)+T(60,122,'A')+T(320,122,'B'));
+const FP1=sv(130,P('l','M60 65H320M190 10V120M190 53H202V65'));
+const FP3=sv(110,P('l','M30 25H330M30 55H330M30 85H330')+P('d','M250 19l6 6-6 6M250 49l6 6-6 6M250 79l6 6-6 6')+T(344,29,'(d1)','start')+T(344,59,'(d2)','start')+T(344,89,'(d3)','start'));
+const FP7=sv(130,P('l','M30 100H340M120 88H132V100M120 30H132V42')+P('d','M120 12V125')+P('a','M30 30H340')+D(250,30)+T(256,22,'A','start')+T(320,118,'(d)'));
+const FRQ=sv(110,P('l','M120 90H300M120 90V15')+P('a','M120 76H134V90'));
+const ang=(d,t,b)=>{const r=d*Math.PI/180,f=n=>n.toFixed(1),X=(l,a)=>f(120+l*Math.cos(a)),Y=(l,a)=>f(110-l*Math.sin(a));return sv(130,P('l',`M320 110H120L${X(100,r)} ${Y(100,r)}`)+P('a',`M150 110A30 30 0 0 0 ${X(30,r)} ${Y(30,r)}`)+(b?P('d',`M120 110L${X(110,r/2)} ${Y(110,r/2)}`)+T(X(120,r/2),Y(120,r/2),'z'):'')+T(240,70,t,'start'))};
+const FL=sv(120,P('l','M60 90H320')+P('a','M160 90A30 30 0 0 1 220 90')+D(190,90)+T(60,112,'A')+T(190,112,'O')+T(320,112,'B'));
+const FN=sv(90,P('l','M120 55H320')+P('a','M120 55H200')+D(120,55)+T(120,78,'O')+T(220,40,'Ox et Oy superposées','start'));
+const FR=sv(150,P('l','M60 120H320A130 130 0 0 0 60 120Z')+P('a','M190 120L280 36')+D(190,120)+T(190,142,'O')+T(326,116,'0°','start')+T(22,116,'180°','start'));
+const FS2=sv(110,P('a','M190 8V104')+D(190,55)+T(198,50,'A','start')+T(200,78,"A' = ?",'start'));
+const FS3=sv(140,P('a','M190 8V132')+P('l','M70 40L130 100M310 40L250 100')+P('d','M70 40H310M130 100H250')+T(54,40,'A')+T(114,116,'B')+T(326,40,"A'")+T(266,116,"B'")+T(88,80,'6 cm','end')+T(292,80,'?','start'));
+const FS6=sv(140,P('a','M190 8V132')+P('l','M40 30L120 60M40 80L120 110M340 30L260 60M340 80L260 110')+P('d','M40 30H340M40 80H340')+T(54,22,'(d1)','start')+T(54,72,'(d2)','start'));
+const FS7=sv(110,P('a','M190 8V104')+D(70,60)+T(70,48,'A')+T(310,56,"A' ?"));
+const FT1=sv(140,P('l','M190 20L100 110H280Z')+T(190,14,'A')+T(92,118,'B','end')+T(288,118,'C','start')+T(132,58,'5 cm','end')+T(250,58,'5 cm','start')+T(190,132,'8 cm'));
+const FT2=sv(130,P('l','M190 20L100 110H280Z')+P('a','M139 59l12 12M229 71l12-12M190 104v12'));
+const FT3=sv(130,P('l','M100 20V110H280Z')+P('a','M100 98H112V110'));
+const FQ4=sv(120,P('l','M80 20H300V100H80Z')+P('a','M80 32H92V20M300 32H288V20M80 88H92V100M300 88H288V100'));
+const FQ5=sv(145,P('l','M130 10H250V130H130Z')+P('a','M130 22H142V10M250 22H238V10M130 118H142V130M250 118H238V130')+P('d','M190 4v12M190 124v12M124 70h12M244 70h12'));
+const FQ6=sv(130,P('l','M190 10L300 65L190 120L80 65Z')+P('a','M248 32l-6 11M132 32l6 11M242 87l6 11M138 87l-6 11'));
+const FQ7=sv(145,P('l','M100 120H280')+P('d','M132 32A94 94 0 0 1 160 48M137 68A152 152 0 0 1 164 22')+D(100,120)+D(280,120)+D(150,40)+T(150,26,'A')+T(92,134,'B','end')+T(288,134,'C','start'));
+const FQ8=sv(130,P('l','M80 110H240L310 30H150Z')+P('d','M226 24l6 6-6 6M156 104l6 6-6 6'));
+const FC1=sv(170,CI(190,85,75)+P('d','M190 85H265')+D(190,85)+D(265,85)+T(190,104,'O')+T(228,78,'3 cm'));
+const FC2=sv(170,CI(190,85,75)+P('d','M190 85H265')+D(190,85)+D(265,85)+T(190,104,'O')+T(228,78,'4,5 cm'));
+const FC3=sv(170,CI(190,85,75)+P('a','M115 85H265')+D(190,85)+D(115,85)+D(265,85)+T(190,104,'O')+T(190,70,'12 cm'));
+const FC4=sv(170,CI(190,85,75)+P('d','M190 85H240M190 85V10')+D(190,85)+D(240,85)+T(180,100,'O','end')+T(240,75,'M')+T(214,102,'2 cm')+T(198,50,'3 cm','start'));
+const FC5=sv(170,CI(190,85,75)+P('a','M190 85L125 47.5L255 47.5Z')+D(190,85)+D(125,47.5)+D(255,47.5)+T(190,104,'O')+T(115,42,'A','end')+T(265,42,'B','start'));
+const FC6=sv(170,CI(190,85,75)+P('a','M115 85H265')+P('d','M141.8 142.5L247.5 36.8')+D(190,85)+T(190,104,'O'));
+const FC8=sv(150,CI(100,75,55)+`<circle class="l" cx="280" cy="75" r="55" style="fill:var(--bg2)"/>`);
+const add=(i,m)=>Object.entries(m).forEach(([k,f])=>LV[i].q[k][4]=f);
+add(0,{0:FA,1:FB,2:FC,3:FM,4:F1,5:F1,6:FD,7:F1});
+add(1,{0:FP1,1:FP3,2:F2,3:F2,4:FRQ,5:FP3,6:FP7});
+add(2,{0:ang(132,'angle de 132°'),1:ang(38,'angle de 38°'),2:FL,3:FN,4:FR,5:ang(70,'xOy = 70°',1),6:F3});
+add(3,{0:F4,1:FS2,2:FS3,3:F4,4:F4,5:FS6,6:FS7});
+add(4,{0:FT1,1:FT2,2:FT3,3:FQ4,4:FQ5,5:FQ6,6:FQ7,7:FQ8});
+add(5,{0:FC1,1:FC2,2:FC3,3:FC4,4:FC5,5:FC6,6:FC1,7:FC8});
+LV.forEach((_,i)=>{S.ok[i]=0;S.done[i]=false;S.n[i]=0});
+const tot=()=>{let o=0,n=0;CORE.forEach(i=>{if(S.done[i]){o+=S.ok[i];n+=S.n[i]}});return{o,n}};
+const grade=()=>{const t=tot();return t.n?t.o/t.n*20:0};
+const app=$('#app'),setSt=()=>$('#st').textContent='🔥 '+S.st;
+const mascot=`<svg viewBox="0 0 100 100" width="100" height="100" aria-hidden="true"><circle cx="50" cy="52" r="38" fill="#14142b"/><rect x="14" y="40" width="72" height="24" rx="10" fill="#f2c9a0"/><circle cx="36" cy="52" r="5" fill="#14142b"/><circle cx="64" cy="52" r="5" fill="#14142b"/><rect x="12" y="29" width="76" height="9" fill="#d62839"/><path d="M88 33l11-9-2 14zM88 35l10 9-10-2z" fill="#d62839"/></svg>`;
+
+function home(){
+  const any=CORE.some(i=>S.done[i]),all=CORE.every(i=>S.done[i]);
+  let h=`<section class="card c pop">${mascot}<h1>Ninja Maths : objectif 20 / 20</h1><p>Géométrie 6ème. Lis chaque parchemin, puis combats ! Une question ratée revient jusqu'à ce que tu la réussisses.</p>`;
+  if(any){const t=tot();h+=`<p class="big">${fmt(grade())}<small style="font-size:1.1rem"> / 20</small></p><p>${all?'Ta note du premier essai':'Note provisoire'} (${t.o} / ${t.n} du premier coup)</p>`}
+  h+=`</section><div class="map">`;
+  LV.forEach((L,i)=>{const lk=i>S.un;h+=`<button class="lv" style="--b:${L.b}" ${lk?'disabled':''} onclick="start(${i})"><span class="e">${L.e}</span><span><b>${i+1}. ${L.n}</b><small>${L.t}</small></span><span class="s">${S.done[i]&&S.ok[i]===S.n[i]?'⭐ ':''}${S.done[i]?S.ok[i]+' / '+S.n[i]:(lk?'🔒':'À faire')}</span></button>`});
+  app.innerHTML=h+'</div>';window.scrollTo(0,0);
+}
+function start(i){
+  S.li=i;const L=LV[i];S.qs=typeof L.q==='function'?L.q():sh(L.q);
+  S.queue=S.qs.map((_,k)=>k);S.failed={};S.ok[i]=0;S.done[i]=false;S.n[i]=S.qs.length;S.dn=0;
+  app.innerHTML=`<section class="card les pop" style="border-top:12px solid ${L.b}">${L.l}<div class="btns"><button class="btn g" onclick="home()">⬅ Carte</button><button class="btn" onclick="showQ()">J'ai compris : au combat ! ⚔️</button></div></section>`;
+  window.scrollTo(0,0);say(i?"Nouveau parchemin, nouvelle ceinture !":"Bienvenue au dojo, jeune ninja ! Lis bien le parchemin, puis c'est parti !");
+}
+function showQ(){
+  const L=LV[S.li];if(!S.queue.length)return end();
+  const k=S.queue[0],q=S.qs[k];S.k=k;S.ans=false;
+  S.opts=sh([{t:q[1],c:1}].concat(q[2].map(t=>({t,c:0}))));
+  const N=S.qs.length,pc=Math.round(S.dn/N*100),LT='ABCD';
+  app.innerHTML=`<section class="pop"><details><summary>📜 Revoir le parchemin</summary><div class="les">${L.l}</div></details>
+  <div class="qh"><span>${L.e} ${L.n}</span><span>${S.dn} / ${N} réussies</span></div>
+  <div class="bar" style="--b:${L.b==='#f3f3f3'?'#9aa3d8':L.b==='#1a1a2e'?'#d62839':L.b}" role="progressbar" aria-valuenow="${pc}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pc}%"></i></div>
+  <div class="card" style="margin-top:14px">${S.failed[k]?'<span class="tag">🔁 Rattrapage : tu vas y arriver !</span>':''}<p class="q">${q[0]}</p>${q[4]||''}
+  <div class="opts">${S.opts.map((o,i)=>`<button class="opt" onclick="pick(${i})"><span class="k">${LT[i]}</span><span>${o.t}</span></button>`).join('')}</div><div id="fb"></div></div></section>`;
+  window.scrollTo(0,0);
+}
+function pick(i){
+  if(S.ans)return;S.ans=true;
+  const k=S.k,q=S.qs[k],o=S.opts[i],bs=[...document.querySelectorAll('.opt')];bs.forEach(b=>b.disabled=true);
+  let fb;
+  if(o.c){bs[i].classList.add('good');S.queue.shift();S.dn++;if(!S.failed[k])S.ok[S.li]++;S.st++;setSt();
+    tone(660,0,.12);tone(990,.09,.12);tone(1320,.18,.3);flash(S.st>=3?'🔥 COMBO x'+S.st+' !':'⚔️ Touché !');
+    setTimeout(()=>say(S.st===5?"Cinq d'affilée ! Les ombres n'ont aucune chance !":GOOD[0|Math.random()*GOOD.length]),250);
+    fb=`<div class="fb good"><b>✅ Bonne réponse !</b>${q[3]}</div>`;
+  }else{bs[i].classList.add('bad');S.failed[k]=1;S.queue.shift();S.queue.push(k);S.st=0;setSt();
+    tone(220,0,.2,'sawtooth',.07);tone(160,.15,.25,'sawtooth',.07);setTimeout(()=>say(BAD[0|Math.random()*BAD.length]),250);
+    fb=`<div class="fb bad"><b>❌ Pas tout à fait…</b>${q[3]}<br><em>Cette question reviendra à la fin de la ceinture pour que tu la maîtrises.</em></div>`;}
+  $('#fb').innerHTML=fb+`<div class="btns"><button class="btn" id="nx" onclick="showQ()">Suivant ➜</button></div>`;
+  $('#nx').focus({preventScroll:true});$('#fb').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function end(){
+  const L=LV[S.li],N=S.qs.length,ok=S.ok[S.li],perfect=ok===N;S.done[S.li]=true;S.un=Math.max(S.un,Math.min(S.li+1,6));
+  const last=CORE.every(i=>S.done[i]);win();say(perfect?"Sans aucune erreur ! Tu es un ninja exceptionnel !":"Terminé ! Tu as maîtrisé toutes les questions. Bravo jeune ninja !");
+  const nx=S.li<6?`<button class="btn" onclick="start(${S.li+1})">Ceinture suivante ➜</button>`:(last?`<button class="btn" onclick="fin()">Voir ma note finale 🏁</button>`:'');
+  app.innerHTML=`<section class="card c pop" style="--b:${L.b}"><div style="font-size:3rem">${perfect?'🏆':'🥷'}</div><h2>${L.n} obtenue !</h2><p class="big">${ok} / ${N}</p><p>${perfect?'Sans une seule erreur au premier essai : parfait !':'bonnes réponses du premier coup. Les autres, tu les as corrigées. Rejoue pour viser le sans-faute !'}</p><div class="btns"><button class="btn g" onclick="start(${S.li})">🔁 Rejouer</button>${nx}<button class="btn g" onclick="home()">🗺️ Carte</button></div></section>`;
+  window.scrollTo(0,0);
+}
+function fin(){
+  const g=grade(),t=tot(),p=t.o===t.n;win();
+  app.innerHTML=`<section class="card c pop"><div style="font-size:3.2rem">${p?'👑':'🥷'}</div><h2>${p?'MAÎTRE NINJA DE LA GÉOMÉTRIE':'Ta note finale'}</h2><p class="big">${fmt(g)} / 20</p><p>${t.o} bonnes réponses du premier coup sur ${t.n}.</p><p><b>${p?"20 sur 20 ! Tu maîtrises tout le cours !":g>=16?"Très beau score ! Rejoue les ceintures pour viser le 20 sur 20 !":"Relis les parchemins, puis rejoue les ceintures où tu as hésité !"}</b></p><div class="btns"><button class="btn" onclick="home()">🗺️ Rejouer des ceintures</button></div></section>`;
+  window.scrollTo(0,0);
+}
+home();
+</script></body></html>
